@@ -7,8 +7,12 @@ namespace CourseWork
     {
         private readonly CheckUser _user;
 
+        // it also private variable and also should be with underline prefix
+        // if you don't write a private modifier it doesn't mean that the field could ignore conventions
         int selectedRow;
         //key - displayed name in form, value - field name in our DB --- for searching
+        // also forgot about modifier and the variable could be IDictionary to be able to hold not only Dictionary instance
+        // And don't understand why it's needed
         Dictionary<string, string> Dic_fields = new Dictionary<string, string>() {
             {"Client","Client" },
             {"Count of people","countOfPeople" },
@@ -16,6 +20,7 @@ namespace CourseWork
             {"Arrival date","arrivalDate" },
             {"Departure date","departureDate" }
         };
+        // make enters between methods. It will be easier to read
         public Booking_Form(CheckUser user)
         {
             InitializeComponent();
@@ -23,6 +28,7 @@ namespace CourseWork
         }
         private void CreateColumns()
         {
+            // a lot of values that could be moved to constants
             dataGridView_booking.Columns.Add("indID_Booking", "ID_Booking");
             dataGridView_booking.Columns.Add("indClient", "Client");
             dataGridView_booking.Columns.Add("indCountOfPeople", "Count of people");
@@ -33,6 +39,8 @@ namespace CourseWork
         }
         private void WriteBookingToDataGrid(DataGridView dgv, Booking booking)
         {
+            // DateTime format could be a global constant of your application to be able to change the date format in one place (if you for example moving product to US)
+            // Or it could be in configuration fil
             dgv.Rows.Add(booking.Id, booking.Client, booking.CountOfPeople,
                 booking.RoomNumber, booking.ArrivalDate.ToString("yyyy-MM-dd"),
                 booking.DepartureDate.ToString("yyyy-MM-dd"), RowState.ModifiedNew);
@@ -58,9 +66,13 @@ namespace CourseWork
 
             foreach (var booking in bookings)
             {
+                // It's better to have the method realisation below
+                // So when you read code from top to bottom, you see the correct sequence
+                // And you definetly read the code from top to bottom
                 WriteBookingToDataGrid(dgv, booking);
             }
         }
+        // name convention
         private void button_newClient_Click(object sender, EventArgs e)
         {
             NewClient_Form newClientForm = new NewClient_Form(this, _user);
@@ -69,7 +81,13 @@ namespace CourseWork
         }
         private void mainPageToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // There are more than a lot of 'new' keyword. It's better to replace it with using FormsFactory
+            // This factory could hold User instance and you don't need to provide it form to form
+            // Just imagine that you need to not provide user. How many places do you need to modify???
             Main_Form mainForm = new Main_Form(_user);
+            // Logic is the same from form to form
+            // Create a new form. Show new one, hide old one
+            // It could be in Factory method or in other place, doesn't matter, but it should be moved to a separate global method
             mainForm.Show();
             this.Hide();
         }
@@ -103,6 +121,7 @@ namespace CourseWork
         private void Change()
         {
             int selectedRowIndex = dataGridView_booking.CurrentCell.RowIndex;
+            // All conditions should be reverted to make it easier to read. As I've shown with validation method (don't remember where it actually lives)
             if (textBox_idBooking.Text != string.Empty)
             {
                 int id = int.Parse(textBox_idBooking.Text);
@@ -141,6 +160,8 @@ namespace CourseWork
 
         private void DeleteRow()
         {
+            // Also conditions should be reverted
+            // Use string.IsNullOrEmpty method
             if (textBox_idBooking.Text != string.Empty)
             {
 
@@ -148,6 +169,7 @@ namespace CourseWork
 
                 dataGridView_booking.Rows[index].Visible = false;
 
+                // It's useless condition. You do the same action even if you don't get into this condition
                 if (dataGridView_booking.Rows[index].Cells[0].Value.ToString() == string.Empty)
                 {
                     dataGridView_booking.Rows[index].Cells[6].Value = RowState.Deleted;
@@ -167,6 +189,7 @@ namespace CourseWork
 
                 if (rS == RowState.Modified)
                 {
+                    // Could be moved to separate method, that's called Update...
                     int id = (int)dataGridView_booking.Rows[index].Cells[0].Value;
                     string Client = (string)dataGridView_booking.Rows[index].Cells[1].Value;
                     int countOfPeople = (int)dataGridView_booking.Rows[index].Cells[2].Value;
@@ -198,6 +221,7 @@ namespace CourseWork
 
                 if (rS == RowState.Deleted)
                 {
+                    // to method Delete
                     int id = (int)(dataGridView_booking.Rows[index].Cells[0].Value);
                     string strQueryDelete = $"DELETE FROM Booking WHERE ID_Booking = {id}";
 
@@ -228,6 +252,7 @@ namespace CourseWork
         private void dataGridView_booking_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             selectedRow = e.RowIndex;
+            // revert
             if (selectedRow >= 0)
             {
                 DataGridViewRow row = dataGridView_booking.Rows[selectedRow];
@@ -268,7 +293,7 @@ namespace CourseWork
             textBox_roomNumber.DataSource = items.ToArray();
             textBox_roomNumber.DisplayMember = "Text";
         }
-
+        // Name convention is different
         private void button_change_Click(object sender, EventArgs e)
         {
             Change();

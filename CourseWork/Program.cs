@@ -11,8 +11,10 @@ namespace CourseWork
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
+
+            // So you don't have an authorization and only admin can be logged in?
             CheckUser user = new CheckUser("admin", true);
-            //ярпнйс бхье онрп╡амн асде бхдюкхрх!!!!!!!!!!!!!!!!!!!!!!!
+            //О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫ О©╫О©╫О©╫п╡О©╫О©╫О©╫ О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫!!!!!!!!!!!!!!!!!!!!!!!
             Application.Run(new Main_Form(user));
         }
     }

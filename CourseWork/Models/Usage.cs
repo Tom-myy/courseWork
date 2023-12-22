@@ -11,8 +11,10 @@ namespace CourseWork.Models
     {
         public int Id { get; set; } 
         public int IdService { get; set; } 
+        // Don't get what it's about
         public string Service { get; set; } = default!;
         public int IdRegistration { get; set; }
+        // The same here
         public string Client { get; set; } = default!;
         public int CountOfUsedServices { get; set; } 
         public int SumOfServices { get; set; } 
