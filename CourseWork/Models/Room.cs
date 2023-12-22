@@ -12,6 +12,7 @@ namespace CourseWork.Models
         public int RoomNumber { get; set; }
         public int Floor {get;set;}
         public string TypeName {get;set;} = default!;
+        // IsActive - typo
         public bool IsActiv {get;set;}
     }
 }

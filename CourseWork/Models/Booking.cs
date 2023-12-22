@@ -10,6 +10,7 @@ namespace CourseWork.Models
     {
         public int Id { get; set; }
         public int IdClient { get; set; }
+        // can't understand what is it and why is it here 
         public string Client { get; set; } = default!;
         public int CountOfPeople { get; set; }
         public int RoomNumber { get; set; }

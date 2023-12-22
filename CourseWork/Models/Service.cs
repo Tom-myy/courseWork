@@ -13,6 +13,7 @@ namespace CourseWork.Models
         public string ServiceName { get; set; }
         public string ServiceDescription { get; set; }
         public int ServicePrice { get; set; }
+        // typo - IsActive
         public bool IsActiv { get; set; }
     }
 }
